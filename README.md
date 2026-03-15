@@ -33,6 +33,30 @@ src/
   db/ (repositorio sqlite)
 ```
 
+## Estructura detallada
+.devcontainer/ para abrir en GitHub Codespaces con Python 3.11 y extensiones.
+.github/workflows/ci.yml: workflow de Actions que instala deps y ejecuta pytest.
+requirements.txt: pytest, httpx, pytest-httpserver.
+pytest.ini: configuración para descubrir tests desde src/ y tests/.
+src/ con el código de producción:
+
+layers/: modelo User, InMemoryUserRepository, UserService, UserController.
+modules/: DiscountEngine + OrderCalculator.
+external/: UserClient con httpx.
+db/: SQLiteUserRepository con sqlite3 en memoria.
+
+
+tests/ con 4 archivos:
+
+test_part1_layers.py — por capas.
+test_part2_modules.py — modular.
+test_part3_external_api.py — API externa con pytest-httpserver.
+test_part4_database.py — base de datos (SQLite in‑memory).
+
+
+README.md con instrucciones ejecutables.
+
+
 ## Sugerencias didácticas
 - Introduce un cambio en cada parte (nueva regla, nuevo campo, constraint) y vuelve a correr tests.
 - Integra este repo en tu pipeline CI con el workflow de GitHub Actions incluido.
